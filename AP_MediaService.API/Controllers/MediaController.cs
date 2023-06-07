@@ -32,7 +32,7 @@ namespace AP_MediaService.API.Controllers
             var result = await _mediaService.InsertMediaServiceConfigAsync(req);
             return await _httpResultHelper.CustomResult(result.RespCode.GetHttpStatusCode(), result, logModel); 
         }
-        //test
+      
         [HttpGet]
         [Route("GetBucketListAsync")]
         [ProducesResponseType(typeof(Response<FileResponse>), 200)]
