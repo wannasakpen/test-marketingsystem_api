@@ -93,8 +93,8 @@ namespace AP_MediaService.BLL.Services
                 {
                     return result = new Response<string>()
                     {
-                        RespCode = ErrorCodes.Forbidden,
-                        Data = ""
+                        RespCode = ErrorCodes.ForbiddenBlockMediaServerKey,
+                        Data = "Forbidden Block MediaServerKey"
                     };
                 } 
 
@@ -149,8 +149,8 @@ namespace AP_MediaService.BLL.Services
                 {
                     return result = new Response<string>()
                     {
-                        RespCode = ErrorCodes.Forbidden,
-                        Data = ""
+                        RespCode = ErrorCodes.ForbiddenBlockMediaServerKey,
+                        Data = "Forbidden Block MediaServerKey"
                     };
                 }
                 var StorageType = await _mediaRepository.GetMSTStorageTypeAsync(_mediaConfig.StorageTypeID);
@@ -209,8 +209,8 @@ namespace AP_MediaService.BLL.Services
                 {
                     return result = new Response<string>()
                     {
-                        RespCode = ErrorCodes.Forbidden,
-                        Data = ""
+                        RespCode = ErrorCodes.ForbiddenBlockMediaServerKey,
+                        Data = "Forbidden Block MediaServerKey"
                     };
                 }
                 var StorageType = await _mediaRepository.GetMSTStorageTypeAsync(_mediaConfig.StorageTypeID);
@@ -261,8 +261,8 @@ namespace AP_MediaService.BLL.Services
                 {
                     return result = new Response<string>()
                     {
-                        RespCode = ErrorCodes.Forbidden,
-                        Data = ""
+                        RespCode = ErrorCodes.ForbiddenBlockMediaServerKey,
+                        Data = "Forbidden Block MediaServerKey"
                     };
                 }
                 var StorageType = await _mediaRepository.GetMSTStorageTypeAsync(_mediaConfig.StorageTypeID);

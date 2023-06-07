@@ -79,7 +79,17 @@ namespace AP_MediaService.Common.ActionFilters
 
             if (!context.ModelState.IsValid)
             {
-                context.Result = HttpResultHelper.CustomResult(ErrorCodes.BadRequestInvalid.GetHttpStatusCode(), context.ModelState);
+                Response result = null;
+                Dictionary<string, string> errorList = context.ModelState.ToDictionary(
+                       kvp => kvp.Key,
+                       kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).FirstOrDefault()
+                   );
+                result = new Response<Dictionary<string, string>>()
+                {
+                    RespCode = ErrorCodes.Forbidden,
+                    Data = errorList
+                };
+                context.Result = HttpResultHelper.CustomResult(ErrorCodes.BadRequestInvalid.GetHttpStatusCode(), result);
             }
         }
     }

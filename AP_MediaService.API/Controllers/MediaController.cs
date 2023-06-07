@@ -27,6 +27,8 @@ namespace AP_MediaService.API.Controllers
             _httpResultHelper = httpResultHelper;
             logModel = new LogModel();
         }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost]
         [Route("InsertMediaServiceConfig")]
         [ProducesResponseType(typeof(Response<string>), 200)]
@@ -50,7 +52,7 @@ namespace AP_MediaService.API.Controllers
         [Route("GetFileAsync")]
         [ProducesResponseType(typeof(Response<FileResponse>), 200)]
         [SwaggerHeader(HeaderParameter.AccessKey, "MediaServerKey", "", true)]
-        public async Task<ActionResult> GetFileAsyncAsync(string bucket, string dirPath, string fileName, [FromHeader(Name = HeaderParameter.AccessKey)] string AccessKey = null)
+        public async Task<ActionResult> GetFileAsyncAsync(string bucket, string? dirPath, string fileName, [FromHeader(Name = HeaderParameter.AccessKey)] string AccessKey = null)
         {
             var result = await _mediaService.GetFileAsyncAsync(bucket, dirPath, fileName);
             return await _httpResultHelper.CustomResult(result.RespCode.GetHttpStatusCode(), result, logModel);

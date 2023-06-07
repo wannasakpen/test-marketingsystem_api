@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AP_MediaService.Common.MappingErrors
-{
+{ 
     public enum ErrorCodes : int
     {
         [Description("Success")]
@@ -29,8 +30,8 @@ namespace AP_MediaService.Common.MappingErrors
         [Description("Data Conflict")]
         Conflict = 40900,
 
-        [Description("Block send OTP")]
-        ForbiddenBlockOTP = 40301,
+        [Description("Block MediaServerKey")]
+        ForbiddenBlockMediaServerKey = 40301,
 
         [Description("Unauthorized")]
         Unauthorized = 40100,

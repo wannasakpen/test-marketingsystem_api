@@ -48,6 +48,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "MediaService Resful API Document",
     });
     c.OperationFilter<SwaggerHeaderFilter>();
+    c.SchemaFilter<EnumSchemaFilter>();
 });
 
 var app = builder.Build();

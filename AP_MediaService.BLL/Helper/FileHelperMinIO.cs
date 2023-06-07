@@ -57,8 +57,11 @@ namespace AP_MediaService.BLL.Helper
                 }
 
                 var stream = file.OpenReadStream();
-                string objectName = $"{dirPath}" + "/" + $"{fileName}";
 
+                string objectName;
+                if (String.IsNullOrEmpty(dirPath)) objectName = fileName;
+                else objectName = $"{dirPath}" + "/" + $"{fileName}";
+                 
                 // Upload a file to bucket.
                 var putObjectArgs = new PutObjectArgs()
                     .WithBucket(bucket)
@@ -140,8 +143,11 @@ namespace AP_MediaService.BLL.Helper
                                  .WithCredentials(_mediaConfig.AccessKey, _mediaConfig.SecretKey)
                                  .WithSSL((bool)_mediaConfig.WithSSL)
                                  .Build();
+                 
+                string objectName;
+                if (String.IsNullOrEmpty(dirPath)) objectName = fileName;
+                else objectName = $"{dirPath}" + "/" + $"{fileName}";
 
-                string objectName = $"{dirPath}" + "/" + $"{fileName}";
                 var args = new PresignedGetObjectArgs()
                 .WithBucket(bucket)
                        .WithObject(objectName)
