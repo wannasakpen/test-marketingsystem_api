@@ -30,7 +30,7 @@ namespace AP_MediaService.API.Controllers
         public async Task<ActionResult> InsertMediaServiceConfigAsync(InsertMediaServiceConfigReq req)
         {
             var result = await _mediaService.InsertMediaServiceConfigAsync(req);
-            return await _httpResultHelper.CustomResult(result.RespCode.GetHttpStatusCode(), result, logModel);
+            return await _httpResultHelper.CustomResult(result.RespCode.GetHttpStatusCode(), result, logModel); 
         }
 
         [HttpGet]
