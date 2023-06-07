@@ -1,4 +1,5 @@
 using AP_MediaService.BLL;
+using AP_MediaService.Common.ActionFilters;
 using AP_MediaService.Common.Helper;
 using AP_MediaService.Common.Helper.Interface;
 using AP_MediaService.Common.Helper.Logging;
@@ -13,14 +14,10 @@ using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var current = new CultureInfo("en-US")
-{
-    DateTimeFormat = new DateTimeFormatInfo
-    {
-        Calendar = new GregorianCalendar()
-    }
-};
-Thread.CurrentThread.CurrentCulture = current;
+builder.Services.AddMvc(config =>
+    config.Filters.Add(typeof(ValidateModelAttribute))
+
+);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -49,7 +46,8 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Title = "MediaServiceAPI",
         Description = "MediaService Resful API Document",
-    }); 
+    });
+    c.OperationFilter<SwaggerHeaderFilter>();
 });
 
 var app = builder.Build();

@@ -7,6 +7,9 @@ using AP_MediaService.Common.MappingErrors;
 using AP_MediaService.BLL.Interfaces;
 using AP_MediaService.DTO.Models.ResponseModels;
 using AP_MediaService.DTO.Models.RequestModels;
+using Microsoft.VisualBasic;
+using AP_MediaService.Common.ActionFilters;
+using AP_MediaService.Common.Models;
 
 namespace AP_MediaService.API.Controllers
 {
@@ -36,7 +39,8 @@ namespace AP_MediaService.API.Controllers
         [HttpGet]
         [Route("GetBucketListAsync")]
         [ProducesResponseType(typeof(Response<FileResponse>), 200)]
-        public async Task<ActionResult> GetBucketListAsync()
+        [SwaggerHeader(HeaderParameter.AccessKey, "MediaServerKey", "", true)]
+        public async Task<ActionResult> GetBucketListAsync([FromHeader(Name = HeaderParameter.AccessKey)] string AccessKey = null)
         {
             var result = await _mediaService.GetBucketListAsync();
             return await _httpResultHelper.CustomResult(result.RespCode.GetHttpStatusCode(), result, logModel);
@@ -45,7 +49,8 @@ namespace AP_MediaService.API.Controllers
         [HttpGet]
         [Route("GetFileAsync")]
         [ProducesResponseType(typeof(Response<FileResponse>), 200)]
-        public async Task<ActionResult> GetFileAsyncAsync(string bucket, string dirPath, string fileName)
+        [SwaggerHeader(HeaderParameter.AccessKey, "MediaServerKey", "", true)]
+        public async Task<ActionResult> GetFileAsyncAsync(string bucket, string dirPath, string fileName, [FromHeader(Name = HeaderParameter.AccessKey)] string AccessKey = null)
         {
             var result = await _mediaService.GetFileAsyncAsync(bucket, dirPath, fileName);
             return await _httpResultHelper.CustomResult(result.RespCode.GetHttpStatusCode(), result, logModel);
@@ -54,7 +59,8 @@ namespace AP_MediaService.API.Controllers
         [HttpPost]
         [Route("Upload")]
         [ProducesResponseType(typeof(Response<FileResponse>), 200)]
-        public async Task<ActionResult> UploadFileAsync([FromForm] UploadFileReq req)
+        [SwaggerHeader(HeaderParameter.AccessKey, "MediaServerKey", "", true)]
+        public async Task<ActionResult> UploadFileAsync([FromForm] UploadFileReq req, [FromHeader(Name = HeaderParameter.AccessKey)] string AccessKey = null)
         {
             var result = await _mediaService.UploadAsync(req.file, req.dirPath, req.fileName, req.bucket);
             return await _httpResultHelper.CustomResult(result.RespCode.GetHttpStatusCode(), result, logModel);
@@ -63,7 +69,8 @@ namespace AP_MediaService.API.Controllers
         [HttpPost]
         [Route("Upload/Temp")]
         [ProducesResponseType(typeof(Response<FileResponse>), 200)]
-        public async Task<ActionResult> UploadToTempAsync(IFormFile file)
+        [SwaggerHeader(HeaderParameter.AccessKey, "MediaServerKey", "", true)]
+        public async Task<ActionResult> UploadToTempAsync(IFormFile file, [FromHeader(Name = HeaderParameter.AccessKey)] string AccessKey = null)
         {
             var result = await _mediaService.UploadToTempAsync(file);
             return await _httpResultHelper.CustomResult(result.RespCode.GetHttpStatusCode(), result, logModel);
