@@ -7,31 +7,31 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-# WORKDIR /src
-# COPY ["AP_MediaService.API/AP_MediaService.API.csproj", "AP_MediaService.API/"]
-# RUN dotnet restore "AP_MediaService.API/AP_MediaService.API.csproj"
-# COPY . .
-# WORKDIR "/src/AP_MediaService.API"
-# RUN dotnet build "AP_MediaService.API.csproj" -c Release -o /app/build
+WORKDIR /src
+COPY ["AP_MediaService.API/AP_MediaService.API.csproj", "AP_MediaService.API/"]
+RUN dotnet restore "AP_MediaService.API/AP_MediaService.API.csproj"
+COPY . .
+WORKDIR "/src/AP_MediaService.API"
+RUN dotnet build "AP_MediaService.API.csproj" -c Release -o /app/build
 
-# FROM build AS publish
-# RUN dotnet publish "AP_MediaService.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-# FROM base AS final
-# WORKDIR /app
-# COPY --from=publish /app/publish .
-# ENTRYPOINT ["dotnet", "AP_MediaService.API.dll"]
-
-COPY . /app
-WORKDIR /app/AP_MediaService.API
-
-RUN dotnet restore
-RUN dotnet publish -c Release --output /app/publish
+FROM build AS publish
+RUN dotnet publish "AP_MediaService.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "AP_MediaService.API.dll"]
 
-ENV TZ=Asia/Bangkok
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# COPY . /app
+# WORKDIR /app/AP_MediaService.API
+
+# RUN dotnet restore
+# RUN dotnet publish -c Release --output /app/publish
+
+# FROM base AS final
+# WORKDIR /app
+# COPY --from=build /app/publish .
+# ENTRYPOINT ["dotnet", "AP_MediaService.API.dll"]
+
+# ENV TZ=Asia/Bangkok
+# RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
