@@ -18,7 +18,7 @@
 
         public static string ConnectionString
         {
-            get { return Environment.GetEnvironmentVariable("DefaultConnection") ?? _config.GetConnectionString("DefaultConnection"); }
+            get { return Environment.GetEnvironmentVariable("DefaultConnection");  }
         }
     }
 }
