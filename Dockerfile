@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
 WORKDIR /src
 COPY ["AP_MediaService.API/AP_MediaService.API.csproj", "AP_MediaService.API/"]
-RUN dotnet restore "APSharingAPI/APSharingAPI.csproj"
+RUN dotnet restore "AP_MediaService.API/AP_MediaService.API.csproj"
 COPY . .
 WORKDIR "/src/AP_MediaService.API"
 RUN dotnet build "AP_MediaService.API.csproj" -c Release -o /app/build
