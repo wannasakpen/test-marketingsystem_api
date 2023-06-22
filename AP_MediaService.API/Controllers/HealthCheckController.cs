@@ -11,7 +11,7 @@ namespace AP_MediaService.API.Controllers
             return new ContentResult
             {
                 ContentType = "text/html",
-                Content = "<div>HealthCheck</div>"
+                Content = "<div>HealthCheck a</div>"
             };
         }
     }
